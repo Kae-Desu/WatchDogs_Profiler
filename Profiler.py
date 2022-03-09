@@ -23,13 +23,16 @@ print("Ver.: Beta 0.0.1")
 print("Starting Camera")
 
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+'''
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("trainner.yml")
-
+'''
+'''
 labels = {}
 with open("labels.pickle", 'rb') as f:
     og_labels = pickle.load(f)
     labels = {v:k for k, v in og_labels.items()}
+'''
     
 vid = cv2.VideoCapture(0)
 
@@ -61,12 +64,14 @@ while True:
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = frame[y:y+h, x:x+w]
 
-        #recognizer
+        # Recognizer
+        '''
         id_, conf = recognizer.predict(roi_gray)
         if conf >= 45 and conf <= 85:
             name = labels[id_]
             cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2, cv2.LINE_AA)
-
+        '''
+        # Print your image out
         img_item = "my-image.png"
         cv2.imwrite(img_item, roi_gray)
 
@@ -88,7 +93,15 @@ cv2.destroyAllWindows()
 Version    |    Date & Time         |  Changes
 ===========|========================|==================
 Beta 0.0.1 |    17/01/2022          |  Project Started
+no change  |    03/09/2022          |  Seems like there is an error because there isn't any 'trainner.yml' file, tried to make an if function for trainner.yml
 
 I'm starting this project ^_^ "yeah"
 
+'''
+
+''' (this is some kind of notes hahah, pretty convenient i might say)
+testing if else func
+
+from os.path import exists as ada
+print("yes") if ada('FaceTrain') else print("nope")
 '''
