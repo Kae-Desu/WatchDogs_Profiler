@@ -23,16 +23,15 @@ print("Ver.: Beta 0.0.1")
 print("Starting Camera")
 
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-'''
+
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("trainner.yml")
-'''
-'''
+
 labels = {}
 with open("labels.pickle", 'rb') as f:
     og_labels = pickle.load(f)
     labels = {v:k for k, v in og_labels.items()}
-'''
+
     
 vid = cv2.VideoCapture(0)
 
@@ -60,17 +59,17 @@ while True:
     # Draw a rectangle around the faces
     for (x, y, h, w) in faces:
         cv2.rectangle(frame, (x, y), (x+h, y+w), (0, 255, 0), 2)
-        cv2.rectangle(frame, (x+h, y+w), (x+h+h, y-w-y), (255, 0, 0), cv2.FILLED)
+        # cv2.rectangle(frame, (x+h, y+w), (x+h+h, y-w-y), (255, 0, 0), cv2.FILLED)
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = frame[y:y+h, x:x+w]
 
         # Recognizer
-        '''
+        
         id_, conf = recognizer.predict(roi_gray)
         if conf >= 45 and conf <= 85:
             name = labels[id_]
             cv2.putText(frame, name, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2, cv2.LINE_AA)
-        '''
+        
         # Print your image out
         img_item = "my-image.png"
         cv2.imwrite(img_item, roi_gray)
